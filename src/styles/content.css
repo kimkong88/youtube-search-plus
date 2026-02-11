@@ -1,0 +1,1901 @@
+@import 'tailwindcss';
+
+/* ══════════════════════════════════════════════════════════════════════
+   YouTube Search Plus — Styles
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Filter Button (inside YouTube search bar) ────────────────────── */
+
+#ysp-filter-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    border: none;
+    border-radius: 50%;
+    background: #cc0000;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 4px;
+    flex-shrink: 0;
+    z-index: 10;
+    position: relative;
+    transition: background 0.15s, transform 0.1s;
+}
+
+#ysp-filter-btn:hover {
+    background: #e00;
+    transform: scale(1.08);
+}
+
+#ysp-filter-btn:active {
+    transform: scale(0.95);
+}
+
+#ysp-filter-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: #fff;
+    fill: none;
+    pointer-events: none;
+}
+
+/* Active: glow ring + dot */
+#ysp-filter-btn.ysp-active {
+    box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.3);
+}
+
+#ysp-filter-btn.ysp-active::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border: 2px solid #cc0000;
+    border-radius: 50%;
+}
+
+/* ── Export Button (spawns next to filter button on results page) ── */
+
+#ysp-export-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    border: none;
+    border-radius: 50%;
+    background: #2563eb;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 2px;
+    flex-shrink: 0;
+    z-index: 10;
+    position: relative;
+    transition: background 0.15s, transform 0.1s;
+}
+
+#ysp-export-btn:hover {
+    background: #1d4ed8;
+    transform: scale(1.08);
+}
+
+#ysp-export-btn:active {
+    transform: scale(0.95);
+}
+
+#ysp-export-btn svg {
+    width: 15px;
+    height: 15px;
+    stroke: #fff;
+    fill: none;
+    pointer-events: none;
+}
+
+/* ── Filter Panel ─────────────────────────────────────────────────── */
+
+#ysp-panel {
+    position: fixed;
+    width: 400px;
+    max-height: 480px;
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    z-index: 99999;
+    padding: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 13px;
+    color: #0f0f0f;
+}
+
+#ysp-panel.ysp-open {
+    display: flex;
+    animation: ysp-slide-in 0.15s ease-out;
+}
+
+@keyframes ysp-slide-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+html[dark] #ysp-panel {
+    background: #212121;
+    border-color: #383838;
+    color: #f1f1f1;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Scrollable body (between header and footer) ─────────────────── */
+
+.ysp-body {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+/* Branded Scrollbar (Notic style) */
+.ysp-body {
+    scrollbar-color: #d4d4d4 transparent;
+    scrollbar-width: thin;
+}
+
+.ysp-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ysp-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ysp-body::-webkit-scrollbar-thumb {
+    background: #d4d4d4;
+    border-radius: 4px;
+}
+
+.ysp-body::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+
+html[dark] .ysp-body {
+    scrollbar-color: #444 transparent;
+}
+
+html[dark] .ysp-body::-webkit-scrollbar-thumb {
+    background: #444;
+}
+
+html[dark] .ysp-body::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+/* ── Header ───────────────────────────────────────────────────────── */
+
+.ysp-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+    flex-shrink: 0;
+    border-radius: 12px 12px 0 0;
+}
+
+html[dark] .ysp-header {
+    background: #212121;
+    border-bottom-color: #333;
+}
+
+.ysp-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ysp-header-right {
+    display: flex;
+    align-items: center;
+}
+
+.ysp-header h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.ysp-summary {
+    font-size: 11px;
+    font-weight: 600;
+    color: #999;
+    transition: color 0.15s;
+}
+
+.ysp-summary.ysp-has-filters {
+    color: #cc0000;
+}
+
+/* ── Template Selector (header dropdown) ──────────────────────────── */
+
+.ysp-template-selector {
+    position: relative;
+}
+
+.ysp-template-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: transparent;
+    color: #666;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: 'Roboto', Arial, sans-serif;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+    white-space: nowrap;
+}
+
+.ysp-template-trigger:hover {
+    border-color: #bbb;
+    color: #444;
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.ysp-template-trigger svg {
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+html[dark] .ysp-template-trigger {
+    border-color: #444;
+    color: #aaa;
+}
+
+html[dark] .ysp-template-trigger:hover {
+    border-color: #666;
+    color: #ccc;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.ysp-template-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    width: 260px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+    z-index: 10;
+    overflow: hidden;
+    animation: ysp-slide-in 0.12s ease-out;
+}
+
+.ysp-template-dropdown.ysp-dropdown-open {
+    display: block;
+}
+
+html[dark] .ysp-template-dropdown {
+    background: #2a2a2a;
+    border-color: #444;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+.ysp-template-list {
+    max-height: 200px;
+    overflow-y: auto;
+    scrollbar-color: #d4d4d4 transparent;
+    scrollbar-width: thin;
+}
+
+.ysp-template-list::-webkit-scrollbar { width: 6px; }
+.ysp-template-list::-webkit-scrollbar-track { background: transparent; }
+.ysp-template-list::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 3px; }
+html[dark] .ysp-template-list { scrollbar-color: #444 transparent; }
+html[dark] .ysp-template-list::-webkit-scrollbar-thumb { background: #444; }
+
+.ysp-template-empty {
+    padding: 16px;
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    font-style: italic;
+}
+
+html[dark] .ysp-template-empty {
+    color: #666;
+}
+
+.ysp-template-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.1s;
+}
+
+.ysp-template-item:last-child {
+    border-bottom: none;
+}
+
+html[dark] .ysp-template-item {
+    border-bottom-color: #333;
+}
+
+.ysp-template-item-content {
+    flex: 1;
+    padding: 10px 12px;
+    cursor: pointer;
+    min-width: 0;
+}
+
+.ysp-template-item-content:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+html[dark] .ysp-template-item-content:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.ysp-template-item-name {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #222;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+html[dark] .ysp-template-item-name {
+    color: #e5e5e5;
+}
+
+.ysp-template-item-detail {
+    font-size: 10.5px;
+    color: #999;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+html[dark] .ysp-template-item-detail {
+    color: #666;
+}
+
+.ysp-template-item-delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    margin-right: 8px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #bbb;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s;
+}
+
+.ysp-template-item-delete:hover {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+html[dark] .ysp-template-item-delete {
+    color: #555;
+}
+
+html[dark] .ysp-template-item-delete:hover {
+    background: #3b1111;
+    color: #f87171;
+}
+
+/* ── Sections ─────────────────────────────────────────────────────── */
+
+.ysp-section {
+    padding: 10px 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+html[dark] .ysp-section {
+    border-bottom-color: #2f2f2f;
+}
+
+.ysp-section:last-of-type {
+    border-bottom: none;
+}
+
+.ysp-section-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+html[dark] .ysp-section-title {
+    color: #777;
+}
+
+/* ── Exclude Shorts Toggle ────────────────────────────────────────── */
+
+.ysp-exclude-shorts-section {
+    padding: 8px 16px !important;
+}
+
+.ysp-exclude-shorts-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.ysp-exclude-shorts-toggle input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+    outline: none;
+}
+
+.ysp-exclude-shorts-toggle input[type="checkbox"]:checked {
+    background: #cc0000;
+    border-color: #cc0000;
+}
+
+.ysp-exclude-shorts-toggle input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 4px;
+    width: 4px;
+    height: 8px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+html[dark] .ysp-exclude-shorts-toggle input[type="checkbox"] {
+    background: #2a2a2a;
+    border-color: #555;
+}
+
+html[dark] .ysp-exclude-shorts-toggle input[type="checkbox"]:checked {
+    background: #cc0000;
+    border-color: #cc0000;
+}
+
+.ysp-exclude-shorts-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #222;
+}
+
+html[dark] .ysp-exclude-shorts-label {
+    color: #e8e8e8;
+}
+
+.ysp-exclude-shorts-hint {
+    font-size: 11px;
+    color: #888;
+    margin-left: auto;
+}
+
+html[dark] .ysp-exclude-shorts-hint {
+    color: #666;
+}
+
+/* ── Text Input Fields ────────────────────────────────────────────── */
+
+.ysp-field {
+    margin-bottom: 8px;
+}
+
+.ysp-field:last-child {
+    margin-bottom: 0;
+}
+
+.ysp-field-label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 3px;
+}
+
+.ysp-field label {
+    font-size: 11px;
+    font-weight: 500;
+    color: #777;
+    margin: 0;
+}
+
+html[dark] .ysp-field label {
+    color: #888;
+}
+
+/* Info (i) button next to label */
+.ysp-info-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s;
+    flex-shrink: 0;
+}
+
+.ysp-info-btn:hover {
+    color: #cc0000;
+    background: rgba(204, 0, 0, 0.08);
+}
+
+html[dark] .ysp-info-btn {
+    color: #666;
+}
+
+html[dark] .ysp-info-btn:hover {
+    color: #f87171;
+    background: rgba(248, 113, 113, 0.1);
+}
+
+.ysp-info-btn svg {
+    pointer-events: none;
+}
+
+.ysp-field input {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #d4d4d4;
+    border-radius: 8px;
+    background: #fafafa;
+    font-size: 13px;
+    color: #0f0f0f;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+.ysp-field input:focus {
+    border-color: #065fd4;
+    box-shadow: 0 0 0 2px rgba(6, 95, 212, 0.1);
+}
+
+html[dark] .ysp-field input {
+    background: #1a1a1a;
+    border-color: #444;
+    color: #f1f1f1;
+}
+
+html[dark] .ysp-field input:focus {
+    border-color: #3ea6ff;
+    box-shadow: 0 0 0 2px rgba(62, 166, 255, 0.15);
+}
+
+/* Date picker icon — invert in dark mode so it's visible */
+html[dark] .ysp-field input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.8);
+}
+
+.ysp-row {
+    display: flex;
+    gap: 8px;
+}
+
+.ysp-row .ysp-field {
+    flex: 1;
+}
+
+/* ── Action Buttons ───────────────────────────────────────────────── */
+
+.ysp-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 10px 16px 14px;
+    background: #fff;
+    border-top: 1px solid #eee;
+    flex-shrink: 0;
+    border-radius: 0 0 12px 12px;
+}
+
+html[dark] .ysp-actions {
+    background: #212121;
+    border-top-color: #333;
+}
+
+.ysp-btn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.12s, transform 0.1s;
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+.ysp-btn:active {
+    transform: scale(0.97);
+}
+
+.ysp-btn-clear {
+    background: transparent;
+    color: #666;
+}
+
+.ysp-btn-clear:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+html[dark] .ysp-btn-clear {
+    color: #999;
+}
+
+html[dark] .ysp-btn-clear:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.ysp-btn-apply {
+    background: #cc0000;
+    color: #fff;
+    min-width: 110px;
+    text-align: center;
+    transition: background 0.15s, transform 0.1s;
+}
+
+.ysp-btn-apply:hover {
+    background: #b30000;
+}
+
+.ysp-btn-apply.ysp-btn-saved {
+    background: #16a34a;
+    pointer-events: none;
+}
+
+/* ── Query Preview ────────────────────────────────────────────────── */
+
+.ysp-preview-section {
+    background: #f8f8f8;
+}
+
+html[dark] .ysp-preview-section {
+    background: #1a1a1a;
+}
+
+.ysp-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: 'Roboto Mono', 'Consolas', monospace;
+    font-size: 12px;
+}
+
+.ysp-preview-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 0;
+}
+
+.ysp-preview-connector {
+    display: inline-block;
+    min-width: 32px;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    padding: 1px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+}
+
+.ysp-preview-spacer {
+    visibility: hidden;
+}
+
+.ysp-preview-and {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+html[dark] .ysp-preview-and {
+    background: #1e3a5f;
+    color: #60a5fa;
+}
+
+.ysp-preview-not {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+html[dark] .ysp-preview-not {
+    background: #3b1111;
+    color: #f87171;
+}
+
+.ysp-preview-label {
+    color: #888;
+    font-size: 11px;
+    min-width: 60px;
+    flex-shrink: 0;
+}
+
+html[dark] .ysp-preview-label {
+    color: #777;
+}
+
+.ysp-preview-value {
+    color: #0f0f0f;
+    font-weight: 500;
+    word-break: break-word;
+}
+
+html[dark] .ysp-preview-value {
+    color: #e5e5e5;
+}
+
+/* ── Pro divider (labeled separator above Keep / Save) ────────────── */
+
+.ysp-pro-divider {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.ysp-pro-divider::before,
+.ysp-pro-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #e0e0e0;
+}
+
+html[dark] .ysp-pro-divider::before,
+html[dark] .ysp-pro-divider::after {
+    background: #333;
+}
+
+/* ── Keep Toggle + Save Template (inside preview section) ─────────── */
+
+.ysp-preview-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+html[dark] .ysp-preview-actions {
+    border-top-color: #333;
+}
+
+.ysp-keep-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 11.5px;
+    color: #555;
+    user-select: none;
+}
+
+html[dark] .ysp-keep-toggle {
+    color: #aaa;
+}
+
+.ysp-keep-toggle input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 32px;
+    height: 18px;
+    background: #d4d4d4;
+    border-radius: 9px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+    border: none;
+    outline: none;
+}
+
+.ysp-keep-toggle input[type="checkbox"]::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+.ysp-keep-toggle input[type="checkbox"]:checked {
+    background: #cc0000;
+}
+
+.ysp-keep-toggle input[type="checkbox"]:checked::after {
+    transform: translateX(14px);
+}
+
+html[dark] .ysp-keep-toggle input[type="checkbox"] {
+    background: #444;
+}
+
+html[dark] .ysp-keep-toggle input[type="checkbox"]:checked {
+    background: #cc0000;
+}
+
+html[dark] .ysp-keep-toggle input[type="checkbox"]::after {
+    background: #eee;
+}
+
+.ysp-keep-label {
+    font-weight: 500;
+}
+
+.ysp-save-template-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background: transparent;
+    color: #666;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: 'Roboto', Arial, sans-serif;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    white-space: nowrap;
+}
+
+.ysp-save-template-btn:hover {
+    border-color: #bbb;
+    color: #444;
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.ysp-save-template-btn svg {
+    pointer-events: none;
+}
+
+html[dark] .ysp-save-template-btn {
+    border-color: #444;
+    color: #aaa;
+}
+
+html[dark] .ysp-save-template-btn:hover {
+    border-color: #666;
+    color: #ccc;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* ── Template Modal (save template) ───────────────────────────────── */
+
+#ysp-template-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+}
+
+#ysp-template-modal.ysp-info-open {
+    display: block;
+    animation: ysp-fade-in 0.12s ease-out;
+}
+
+.ysp-template-modal-content {
+    width: 360px;
+}
+
+.ysp-template-modal-body {
+    padding: 16px 20px 20px;
+}
+
+.ysp-template-modal-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #888;
+    margin-bottom: 6px;
+}
+
+html[dark] .ysp-template-modal-label {
+    color: #777;
+}
+
+.ysp-template-modal-body input[type="text"] {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #d4d4d4;
+    border-radius: 8px;
+    background: #fafafa;
+    font-size: 14px;
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #0f0f0f;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+}
+
+.ysp-template-modal-body input[type="text"]:focus {
+    border-color: #065fd4;
+    box-shadow: 0 0 0 2px rgba(6, 95, 212, 0.1);
+}
+
+html[dark] .ysp-template-modal-body input[type="text"] {
+    background: #1a1a1a;
+    border-color: #444;
+    color: #f1f1f1;
+}
+
+html[dark] .ysp-template-modal-body input[type="text"]:focus {
+    border-color: #3ea6ff;
+    box-shadow: 0 0 0 2px rgba(62, 166, 255, 0.15);
+}
+
+.ysp-template-modal-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 12px;
+}
+
+.ysp-tpl-preview-chip {
+    display: inline-block;
+    padding: 3px 8px;
+    background: #f3f3f3;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #555;
+    font-family: 'Roboto Mono', 'Consolas', monospace;
+}
+
+html[dark] .ysp-tpl-preview-chip {
+    background: #2a2a2a;
+    color: #aaa;
+}
+
+.ysp-template-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+/* ── Info Modal ───────────────────────────────────────────────────── */
+
+#ysp-info-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+}
+
+#ysp-info-modal.ysp-info-open {
+    display: block;
+    animation: ysp-fade-in 0.12s ease-out;
+}
+
+@keyframes ysp-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.ysp-info-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.ysp-info-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 420px;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 13px;
+    color: #0f0f0f;
+    animation: ysp-modal-in 0.15s ease-out;
+}
+
+@keyframes ysp-modal-in {
+    from { opacity: 0; transform: translate(-50%, -48%); }
+    to   { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+html[dark] .ysp-info-content {
+    background: #212121;
+    color: #f1f1f1;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Branded scrollbar on modal */
+.ysp-info-content {
+    scrollbar-color: #d4d4d4 transparent;
+    scrollbar-width: thin;
+}
+
+.ysp-info-content::-webkit-scrollbar { width: 8px; }
+.ysp-info-content::-webkit-scrollbar-track { background: transparent; }
+.ysp-info-content::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 4px; }
+.ysp-info-content::-webkit-scrollbar-thumb:hover { background: #aaa; }
+html[dark] .ysp-info-content { scrollbar-color: #444 transparent; }
+html[dark] .ysp-info-content::-webkit-scrollbar-thumb { background: #444; }
+html[dark] .ysp-info-content::-webkit-scrollbar-thumb:hover { background: #666; }
+
+.ysp-info-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid #eee;
+}
+
+html[dark] .ysp-info-header {
+    border-bottom-color: #333;
+}
+
+.ysp-info-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.ysp-info-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    font-size: 20px;
+    color: #666;
+    cursor: pointer;
+    transition: background 0.12s;
+}
+
+.ysp-info-close:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+html[dark] .ysp-info-close {
+    color: #aaa;
+}
+
+html[dark] .ysp-info-close:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.ysp-info-body {
+    padding: 16px 20px 20px;
+}
+
+.ysp-info-section {
+    margin-bottom: 14px;
+}
+
+.ysp-info-section:last-child {
+    margin-bottom: 0;
+}
+
+.ysp-info-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #999;
+    margin-bottom: 4px;
+}
+
+html[dark] .ysp-info-label {
+    color: #666;
+}
+
+.ysp-info-section p {
+    margin: 0;
+    line-height: 1.5;
+    color: #333;
+}
+
+html[dark] .ysp-info-section p {
+    color: #ccc;
+}
+
+.ysp-info-code {
+    display: inline-block;
+    padding: 5px 12px;
+    background: #f3f3f3;
+    border-radius: 6px;
+    font-family: 'Roboto Mono', 'Consolas', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: #cc0000;
+}
+
+html[dark] .ysp-info-code {
+    background: #1a1a1a;
+    color: #f87171;
+}
+
+.ysp-info-example {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    line-height: 1.5;
+}
+
+.ysp-info-icon {
+    flex-shrink: 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.ysp-info-without {
+    background: #fef3f2;
+    color: #7f1d1d;
+}
+
+html[dark] .ysp-info-without {
+    background: #2a1515;
+    color: #fca5a5;
+}
+
+.ysp-info-with {
+    background: #f0fdf4;
+    color: #14532d;
+}
+
+html[dark] .ysp-info-with {
+    background: #152a18;
+    color: #86efac;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   Export Panel (same pattern as filter panel)
+   ══════════════════════════════════════════════════════════════════════ */
+
+#ysp-export-panel {
+    position: fixed;
+    width: 400px;
+    max-height: 480px;
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    z-index: 99999;
+    padding: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 13px;
+    color: #0f0f0f;
+}
+
+#ysp-export-panel.ysp-open {
+    display: flex;
+    animation: ysp-slide-in 0.15s ease-out;
+}
+
+html[dark] #ysp-export-panel {
+    background: #212121;
+    border-color: #383838;
+    color: #f1f1f1;
+}
+
+#ysp-export-panel .ysp-body {
+    padding: 4px 0;
+}
+
+.ysp-export-section {
+    margin-bottom: 12px;
+    padding: 0 16px;
+}
+
+.ysp-export-section:first-child {
+    margin-top: 8px;
+}
+
+.ysp-export-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+html[dark] .ysp-export-label {
+    color: #777;
+}
+
+/* ── Format selector cards ───────────────────────────────────────── */
+
+.ysp-export-formats {
+    display: flex;
+    gap: 8px;
+}
+
+.ysp-export-format {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 14px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    font-family: 'Roboto', Arial, sans-serif;
+    position: relative;
+}
+
+.ysp-export-format:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.ysp-export-format--active {
+    border-color: #065fd4;
+    background: rgba(6, 95, 212, 0.04);
+}
+
+.ysp-export-format--active:hover {
+    background: rgba(6, 95, 212, 0.06);
+}
+
+html[dark] .ysp-export-format {
+    border-color: #444;
+}
+
+html[dark] .ysp-export-format:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+html[dark] .ysp-export-format--active {
+    border-color: #3ea6ff;
+    background: rgba(62, 166, 255, 0.08);
+}
+
+html[dark] .ysp-export-format--active:hover {
+    background: rgba(62, 166, 255, 0.12);
+}
+
+.ysp-export-format svg {
+    color: #555;
+    pointer-events: none;
+}
+
+.ysp-export-format--active svg {
+    color: #065fd4;
+}
+
+html[dark] .ysp-export-format svg {
+    color: #999;
+}
+
+html[dark] .ysp-export-format--active svg {
+    color: #3ea6ff;
+}
+
+.ysp-export-format-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    pointer-events: none;
+}
+
+html[dark] .ysp-export-format-name {
+    color: #e5e5e5;
+}
+
+/* ── Badges ──────────────────────────────────────────────────────── */
+
+.ysp-badge {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+.ysp-badge-pro {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+html[dark] .ysp-badge-pro {
+    background: #3b2f0a;
+    color: #fbbf24;
+}
+
+.ysp-badge-free {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+html[dark] .ysp-badge-free {
+    background: #0a3b29;
+    color: #34d399;
+}
+
+/* ── Result count selector ───────────────────────────────────────── */
+
+.ysp-export-counts {
+    display: flex;
+    gap: 6px;
+}
+
+.ysp-export-count {
+    flex: 1;
+    padding: 8px 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #555;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+    text-align: center;
+}
+
+.ysp-export-count:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.ysp-export-count--active {
+    border-color: #065fd4;
+    background: rgba(6, 95, 212, 0.06);
+    color: #065fd4;
+    font-weight: 600;
+}
+
+html[dark] .ysp-export-count {
+    border-color: #444;
+    color: #aaa;
+}
+
+html[dark] .ysp-export-count:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+html[dark] .ysp-export-count--active {
+    border-color: #3ea6ff;
+    background: rgba(62, 166, 255, 0.1);
+    color: #3ea6ff;
+}
+
+/* ── Field checkboxes ────────────────────────────────────────────── */
+
+.ysp-export-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+}
+
+.ysp-export-field-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 12.5px;
+    color: #444;
+    user-select: none;
+    padding: 2px 0;
+}
+
+html[dark] .ysp-export-field-check {
+    color: #bbb;
+}
+
+.ysp-export-field-check input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1.5px solid #ccc;
+    border-radius: 3px;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.ysp-export-field-check input[type="checkbox"]:checked {
+    background: #065fd4;
+    border-color: #065fd4;
+}
+
+.ysp-export-field-check input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 4px;
+    width: 5px;
+    height: 8px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+html[dark] .ysp-export-field-check input[type="checkbox"] {
+    border-color: #555;
+}
+
+html[dark] .ysp-export-field-check input[type="checkbox"]:checked {
+    background: #3ea6ff;
+    border-color: #3ea6ff;
+}
+
+html[dark] .ysp-export-field-check input[type="checkbox"]:checked::after {
+    border-color: #111;
+}
+
+/* ── Progress bar ────────────────────────────────────────────────── */
+
+.ysp-export-progress {
+    margin-bottom: 12px;
+    padding: 0 16px;
+}
+
+.ysp-export-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: #e5e5e5;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+html[dark] .ysp-export-progress-bar {
+    background: #333;
+}
+
+.ysp-export-progress-fill {
+    height: 100%;
+    background: #065fd4;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+    width: 0;
+}
+
+html[dark] .ysp-export-progress-fill {
+    background: #3ea6ff;
+}
+
+.ysp-export-progress-text {
+    font-size: 11.5px;
+    color: #666;
+    text-align: center;
+}
+
+html[dark] .ysp-export-progress-text {
+    color: #999;
+}
+
+/* ── Export disabled state ────────────────────────────────────────── */
+
+.ysp-btn-disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
+
+/* ── Inline Pro badge ────────────────────────────────────────────── */
+
+.ysp-badge-inline {
+    font-size: 9px;
+    padding: 1px 5px;
+    margin-left: 4px;
+    vertical-align: middle;
+    border-radius: 3px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    line-height: 1;
+}
+
+/* ── Paygate modal ───────────────────────────────────────────────── */
+
+#ysp-paygate-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999999;
+    overscroll-behavior: contain;
+}
+
+#ysp-paygate-modal.ysp-info-open {
+    display: block;
+}
+
+#ysp-paygate-modal .ysp-info-content {
+    z-index: 1;
+}
+
+.ysp-paygate-content {
+    max-width: 340px;
+    text-align: center;
+}
+
+.ysp-paygate-header {
+    padding: 24px 20px 16px;
+}
+
+.ysp-paygate-lock {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fef3c7;
+    color: #92400e;
+    margin-bottom: 12px;
+}
+
+html[dark] .ysp-paygate-lock {
+    background: #3b2f0a;
+    color: #fbbf24;
+}
+
+.ysp-paygate-header h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #0f0f0f;
+}
+
+html[dark] .ysp-paygate-header h3 {
+    color: #f1f1f1;
+}
+
+.ysp-paygate-header p {
+    margin: 0;
+    font-size: 13px;
+    color: #606060;
+    line-height: 1.5;
+}
+
+html[dark] .ysp-paygate-header p {
+    color: #aaa;
+}
+
+.ysp-paygate-features {
+    padding: 0 20px 16px;
+    text-align: left;
+}
+
+.ysp-paygate-features-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #0f0f0f;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+html[dark] .ysp-paygate-features-title {
+    color: #f1f1f1;
+}
+
+.ysp-paygate-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ysp-paygate-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+    font-size: 13px;
+    color: #333;
+}
+
+html[dark] .ysp-paygate-item {
+    color: #ccc;
+}
+
+.ysp-paygate-item svg {
+    flex-shrink: 0;
+    color: #22c55e;
+}
+
+.ysp-paygate-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 20px 20px;
+}
+
+.ysp-paygate-upgrade-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: #cc0000;
+    border: none;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.ysp-paygate-upgrade-btn:hover {
+    background: #aa0000;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   Onboarding Tour
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Overlay (darkened background) ───────────────────────────────── */
+
+.ysp-tour-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 9999990;
+    transition: opacity 0.2s ease;
+}
+
+/* ── Spotlight cutout ────────────────────────────────────────────── */
+
+.ysp-tour-spotlight {
+    position: fixed;
+    border-radius: 10px;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.55);
+    z-index: 9999991;
+    transition: top 0.3s ease, left 0.3s ease, width 0.3s ease, height 0.3s ease;
+    pointer-events: none;
+}
+
+/* Pulsing ring around spotlight */
+.ysp-tour-spotlight::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    animation: ysp-tour-pulse 2s ease-in-out infinite;
+}
+
+@keyframes ysp-tour-pulse {
+    0%, 100% { border-color: rgba(255, 255, 255, 0.3); transform: scale(1); }
+    50%      { border-color: rgba(255, 255, 255, 0.7); transform: scale(1.03); }
+}
+
+/* ── Finger pointer ──────────────────────────────────────────────── */
+
+.ysp-tour-finger {
+    position: fixed;
+    font-size: 28px;
+    z-index: 9999993;
+    pointer-events: none;
+    animation: ysp-tour-finger-bounce 1s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    line-height: 1;
+}
+
+@keyframes ysp-tour-finger-bounce {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+}
+
+/* ── Tooltip card ────────────────────────────────────────────────── */
+
+.ysp-tour-tooltip {
+    position: fixed;
+    width: 320px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    z-index: 9999994;
+    font-family: 'Roboto', Arial, sans-serif;
+    animation: ysp-tour-tooltip-in 0.25s ease-out;
+    overflow: hidden;
+}
+
+html[dark] .ysp-tour-tooltip {
+    background: #282828;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes ysp-tour-tooltip-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Centered mode (welcome/completion steps) */
+.ysp-tour-tooltip--centered {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    width: 380px;
+}
+
+/* Anchored mode (following an element) */
+.ysp-tour-tooltip--anchored {
+    transform: none;
+}
+
+.ysp-tour-tooltip-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f0f0f;
+    padding: 20px 20px 0;
+}
+
+html[dark] .ysp-tour-tooltip-title {
+    color: #f1f1f1;
+}
+
+.ysp-tour-tooltip-body {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #555;
+    padding: 10px 20px 16px;
+}
+
+html[dark] .ysp-tour-tooltip-body {
+    color: #aaa;
+}
+
+.ysp-tour-tooltip-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+    border-radius: 0 0 14px 14px;
+}
+
+html[dark] .ysp-tour-tooltip-actions {
+    border-top-color: #333;
+    background: #222;
+}
+
+/* ── Tour dots ───────────────────────────────────────────────────── */
+
+.ysp-tour-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.ysp-tour-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d0d0d0;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.ysp-tour-dot--active {
+    background: #cc0000;
+    transform: scale(1.3);
+}
+
+html[dark] .ysp-tour-dot {
+    background: #555;
+}
+
+html[dark] .ysp-tour-dot--active {
+    background: #ff4444;
+}
+
+/* ── Tour buttons ────────────────────────────────────────────────── */
+
+.ysp-tour-skip {
+    background: none;
+    border: none;
+    font-size: 12.5px;
+    color: #999;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-family: 'Roboto', Arial, sans-serif;
+    min-width: 50px;
+    transition: color 0.15s;
+}
+
+.ysp-tour-skip:hover {
+    color: #555;
+}
+
+html[dark] .ysp-tour-skip:hover {
+    color: #ccc;
+}
+
+.ysp-tour-next {
+    background: #cc0000;
+    color: #fff;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Roboto', Arial, sans-serif;
+    transition: background 0.15s;
+    min-width: 80px;
+}
+
+.ysp-tour-next:hover {
+    background: #aa0000;
+}

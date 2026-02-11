@@ -1,0 +1,54 @@
+{
+    "manifest_version": 3,
+    "name": "YouTube Search Plus",
+    "version": "1.1.0",
+    "description": "Advanced YouTube search filters — date ranges, title matching, exclusions, and more — right from the search bar.",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "scripting"
+    ],
+    "host_permissions": [
+        "*://www.youtube.com/*",
+        "https://app.getnotic.io/*",
+        "https://extensionpay.com/*"
+    ],
+    "background": {
+        "service_worker": "src/background.ts",
+        "type": "module"
+    },
+    "action": {
+        "default_title": "YouTube Search Plus",
+        "default_popup": "src/popup.html",
+        "default_icon": {
+            "16": "icons/icon-16.png",
+            "48": "icons/icon-48.png",
+            "128": "icons/icon-128.png"
+        }
+    },
+    "icons": {
+        "16": "icons/icon-16.png",
+        "48": "icons/icon-48.png",
+        "128": "icons/icon-128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://www.youtube.com/*"
+            ],
+            "js": [
+                "src/content.ts"
+            ],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": [
+                "https://extensionpay.com/*"
+            ],
+            "js": [
+                "src/extpay-content.ts"
+            ],
+            "run_at": "document_start"
+        }
+    ]
+}

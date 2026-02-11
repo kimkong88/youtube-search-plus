@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YSP — Store Listing Mockups</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ── Page layout ──────────────────────────────────────────────── */
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 40px;
+            color: #0f0f0f;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .page-sub {
+            font-size: 14px;
+            text-align: center;
+            color: #888;
+            margin-bottom: 40px;
+        }
+
+        .mockup-label {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .mockup-wrapper {
+            margin-bottom: 60px;
+        }
+
+        /* ── Browser chrome ───────────────────────────────────────────── */
+
+        .browser {
+            max-width: 1100px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.06);
+            background: #fff;
+        }
+
+        .browser-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #e8e8e8;
+            border-bottom: 1px solid #d0d0d0;
+        }
+
+        .traffic-lights {
+            display: flex;
+            gap: 7px;
+            flex-shrink: 0;
+        }
+
+        .traffic-light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .tl-red    { background: #ff5f57; }
+        .tl-yellow { background: #febc2e; }
+        .tl-green  { background: #28c840; }
+
+        .browser-address {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: #fff;
+            border-radius: 6px;
+            border: 1px solid #d4d4d4;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .browser-address .lock-icon {
+            color: #999;
+        }
+
+        .browser-address .url {
+            color: #333;
+        }
+
+        .browser-address .url-dim {
+            color: #999;
+        }
+
+        .browser-viewport {
+            position: relative;
+            background: #fff;
+            min-height: 520px;
+        }
+
+        /* Dim YouTube content so YSP panels pop */
+        .browser-viewport--dimmed::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.12);
+            z-index: 50;
+            pointer-events: none;
+        }
+
+        /* ── YouTube mock header ──────────────────────────────────────── */
+
+        .yt-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 24px;
+            border-bottom: 1px solid #e5e5e5;
+            background: #fff;
+            gap: 20px;
+        }
+
+        .yt-logo {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .yt-logo-icon {
+            width: 28px;
+            height: 20px;
+            background: #ff0000;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .yt-logo-icon::after {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            border-left: 10px solid #fff;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+
+        .yt-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f0f0f;
+            letter-spacing: -0.5px;
+        }
+
+        .yt-search-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .yt-search-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 20px 0 0 20px;
+            background: #fff;
+            padding: 0 4px 0 16px;
+            height: 40px;
+            gap: 4px;
+        }
+
+        .yt-search-input {
+            flex: 1;
+            font-size: 16px;
+            color: #0f0f0f;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        .yt-search-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 40px;
+            background: #f8f8f8;
+            border: 1px solid #ccc;
+            border-left: none;
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+        }
+
+        .yt-search-btn svg {
+            width: 20px;
+            height: 20px;
+            color: #333;
+        }
+
+        .yt-user-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+
+        .yt-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e0e0e0;
+        }
+
+        /* ── YSP buttons (in search box) ──────────────────────────────── */
+
+        .ysp-filter-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            border: none;
+            border-radius: 50%;
+            background: #cc0000;
+            cursor: pointer;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .ysp-filter-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: #fff;
+            fill: none;
+        }
+
+        .ysp-export-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            border: none;
+            border-radius: 50%;
+            background: #2563eb;
+            cursor: pointer;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .ysp-export-btn svg {
+            width: 15px;
+            height: 15px;
+            stroke: #fff;
+            fill: none;
+        }
+
+        /* ── YouTube filter chips bar ─────────────────────────────────── */
+
+        .yt-chips-bar {
+            display: flex;
+            gap: 8px;
+            padding: 12px 24px;
+            border-bottom: 1px solid #e5e5e5;
+            overflow: hidden;
+        }
+
+        .yt-chip {
+            padding: 6px 12px;
+            border-radius: 8px;
+            background: #f2f2f2;
+            font-size: 13px;
+            font-weight: 500;
+            color: #0f0f0f;
+            white-space: nowrap;
+            border: 1px solid transparent;
+        }
+
+        .yt-chip--active {
+            background: #0f0f0f;
+            color: #fff;
+        }
+
+        /* ── YouTube results ──────────────────────────────────────────── */
+
+        .yt-results {
+            padding: 16px 24px;
+        }
+
+        .yt-result {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .yt-thumb {
+            width: 360px;
+            height: 202px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e8e8e8 0%, #d4d4d4 100%);
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .yt-thumb-duration {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .yt-thumb-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-left: 24px solid rgba(255,255,255,0.6);
+            border-top: 14px solid transparent;
+            border-bottom: 14px solid transparent;
+        }
+
+        .yt-result-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .yt-result-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #0f0f0f;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .yt-result-meta {
+            font-size: 13px;
+            color: #606060;
+            margin-bottom: 4px;
+        }
+
+        .yt-result-channel {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .yt-result-channel-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            flex-shrink: 0;
+        }
+
+        .yt-result-channel-name {
+            font-size: 13px;
+            color: #606060;
+        }
+
+        .yt-result-desc {
+            font-size: 12px;
+            color: #606060;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* ── YSP Filter Panel (floating) ──────────────────────────────── */
+
+        .ysp-panel {
+            position: absolute;
+            width: 400px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(0, 0, 0, 0.04);
+            z-index: 100;
+            font-size: 13px;
+            color: #0f0f0f;
+            overflow: hidden;
+        }
+
+        /* Panel header */
+        .ysp-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .ysp-panel-header h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .ysp-panel-header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ysp-summary-count {
+            font-size: 11px;
+            font-weight: 600;
+            color: #cc0000;
+        }
+
+        .tpl-trigger {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: transparent;
+            color: #666;
+            font-size: 11px;
+            font-weight: 500;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        .tpl-trigger svg { flex-shrink: 0; }
+
+        /* Panel body */
+        .ysp-panel-body {
+            max-height: 340px;
+            overflow-y: auto;
+        }
+
+        /* Section */
+        .ysp-section {
+            padding: 10px 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .ysp-section:last-of-type { border-bottom: none; }
+
+        .ysp-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        /* Field */
+        .ysp-field {
+            margin-bottom: 8px;
+        }
+
+        .ysp-field:last-child { margin-bottom: 0; }
+
+        .ysp-field-label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 3px;
+        }
+
+        .ysp-field-label label {
+            font-size: 11px;
+            font-weight: 500;
+            color: #777;
+        }
+
+        .ysp-field-info {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            color: #aaa;
+        }
+
+        .ysp-field-info svg { pointer-events: none; }
+
+        .ysp-input {
+            width: 100%;
+            padding: 7px 10px;
+            border: 1px solid #d4d4d4;
+            border-radius: 8px;
+            background: #fafafa;
+            font-size: 13px;
+            color: #0f0f0f;
+            font-family: 'Roboto', Arial, sans-serif;
+            box-sizing: border-box;
+        }
+
+        .ysp-input--filled {
+            border-color: #065fd4;
+            box-shadow: 0 0 0 2px rgba(6, 95, 212, 0.08);
+        }
+
+        .ysp-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .ysp-row .ysp-field { flex: 1; }
+
+        /* Preview section */
+        .ysp-preview-section {
+            background: #f8f8f8;
+        }
+
+        .ysp-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-family: 'Roboto Mono', 'Consolas', monospace;
+            font-size: 12px;
+        }
+
+        .ysp-preview-line {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 0;
+        }
+
+        .ysp-preview-connector {
+            display: inline-block;
+            min-width: 32px;
+            font-size: 10px;
+            font-weight: 700;
+            text-align: center;
+            padding: 1px 6px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        .ysp-preview-spacer { visibility: hidden; min-width: 32px; }
+        .ysp-preview-and { background: #dbeafe; color: #1d4ed8; }
+        .ysp-preview-not { background: #fee2e2; color: #dc2626; }
+
+        .ysp-preview-label {
+            color: #888;
+            font-size: 11px;
+            min-width: 60px;
+            flex-shrink: 0;
+        }
+
+        .ysp-preview-value {
+            color: #0f0f0f;
+            font-weight: 500;
+        }
+
+        /* Pro divider */
+        .ysp-pro-divider {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .ysp-pro-divider::before,
+        .ysp-pro-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .ysp-badge-pro {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        /* Keep toggle */
+        .ysp-preview-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+
+        .ysp-keep-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11.5px;
+            color: #555;
+        }
+
+        .ysp-toggle-track {
+            width: 32px;
+            height: 18px;
+            background: #d4d4d4;
+            border-radius: 9px;
+            position: relative;
+        }
+
+        .ysp-toggle-track::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 14px;
+            height: 14px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+        }
+
+        .ysp-keep-label { font-weight: 500; }
+
+        .ysp-save-tpl-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background: transparent;
+            color: #666;
+            font-size: 11px;
+            font-weight: 500;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        .ysp-save-tpl-btn svg { pointer-events: none; }
+
+        /* Actions */
+        .ysp-panel-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 10px 16px 14px;
+            border-top: 1px solid #eee;
+        }
+
+        .ysp-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        .ysp-btn-clear { background: transparent; color: #666; }
+        .ysp-btn-apply { background: #cc0000; color: #fff; min-width: 110px; text-align: center; }
+
+        /* ── YSP Export Panel ──────────────────────────────────────────── */
+
+        .ysp-export-panel {
+            position: absolute;
+            width: 400px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(0, 0, 0, 0.04);
+            z-index: 100;
+            font-size: 13px;
+            color: #0f0f0f;
+            overflow: hidden;
+        }
+
+        .export-section {
+            margin-bottom: 12px;
+            padding: 0 16px;
+        }
+
+        .export-section:first-child { margin-top: 8px; }
+
+        .export-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .export-formats {
+            display: flex;
+            gap: 8px;
+        }
+
+        .export-format {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 14px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: transparent;
+            font-family: 'Roboto', Arial, sans-serif;
+            position: relative;
+        }
+
+        .export-format--active {
+            border-color: #065fd4;
+            background: rgba(6, 95, 212, 0.04);
+        }
+
+        .export-format svg { color: #555; }
+        .export-format--active svg { color: #065fd4; }
+
+        .export-format-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .export-badge {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .export-badge--pro { background: #fef3c7; color: #92400e; }
+        .export-badge--free { background: #d1fae5; color: #065f46; }
+
+        .export-counts {
+            display: flex;
+            gap: 6px;
+        }
+
+        .export-count {
+            flex: 1;
+            padding: 8px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #555;
+            text-align: center;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: transparent;
+        }
+
+        .export-count--active {
+            border-color: #065fd4;
+            background: rgba(6, 95, 212, 0.06);
+            color: #065fd4;
+            font-weight: 600;
+        }
+
+        .export-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+        }
+
+        .export-field {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12.5px;
+            color: #444;
+            padding: 2px 0;
+        }
+
+        .export-check {
+            width: 15px;
+            height: 15px;
+            border: 1.5px solid #ccc;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .export-check--on {
+            background: #065fd4;
+            border-color: #065fd4;
+        }
+
+        .export-check--on::after {
+            content: '';
+            width: 5px;
+            height: 8px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            margin-top: -1px;
+        }
+
+        /* ── SVG icons ────────────────────────────────────────────────── */
+
+        .info-icon {
+            display: inline-flex;
+            width: 14px;
+            height: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+<h1 class="page-title">YouTube Search Plus — Store Mockups</h1>
+<p class="page-sub">Static mockups for screenshots. Edit in Figma as needed.</p>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SCENE 1 — Filter Panel Open
+     ══════════════════════════════════════════════════════════════════ -->
+
+<div class="mockup-wrapper">
+    <div class="mockup-label">Scene 1 — Filter Panel</div>
+    <div class="browser">
+        <div class="browser-header">
+            <div class="traffic-lights">
+                <div class="traffic-light tl-red"></div>
+                <div class="traffic-light tl-yellow"></div>
+                <div class="traffic-light tl-green"></div>
+            </div>
+            <div class="browser-address">
+                <svg class="lock-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span class="url">youtube.com</span><span class="url-dim">/results?search_query=react+hooks+2024</span>
+            </div>
+        </div>
+        <div class="browser-viewport browser-viewport--dimmed">
+            <!-- YouTube header -->
+            <div class="yt-header">
+                <div class="yt-logo">
+                    <div class="yt-logo-icon"></div>
+                    <span class="yt-logo-text">YouTube</span>
+                </div>
+                <div class="yt-search-area">
+                    <div class="yt-search-box">
+                        <span class="yt-search-input">react hooks 2024</span>
+                        <!-- YSP Buttons -->
+                        <div class="ysp-filter-btn" title="Filter">
+                            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                        </div>
+                        <div class="ysp-export-btn" title="Export">
+                            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        </div>
+                    </div>
+                    <div class="yt-search-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    </div>
+                </div>
+                <div class="yt-user-area">
+                    <div class="yt-avatar"></div>
+                </div>
+            </div>
+
+            <!-- YouTube chip bar -->
+            <div class="yt-chips-bar">
+                <div class="yt-chip yt-chip--active">All</div>
+                <div class="yt-chip">Shorts</div>
+                <div class="yt-chip">Live</div>
+                <div class="yt-chip">Playlists</div>
+                <div class="yt-chip">Recently uploaded</div>
+                <div class="yt-chip">Watched</div>
+            </div>
+
+            <!-- Results -->
+            <div class="yt-results">
+                <div class="yt-result">
+                    <div class="yt-thumb" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
+                        <div class="yt-thumb-play"></div>
+                        <div class="yt-thumb-duration">18:42</div>
+                    </div>
+                    <div class="yt-result-info">
+                        <div class="yt-result-title">React Hooks Deep Dive — useEffect, useMemo, and Custom Hooks</div>
+                        <div class="yt-result-meta">245K views &middot; 8 months ago</div>
+                        <div class="yt-result-channel">
+                            <div class="yt-result-channel-avatar" style="background: #e53935;"></div>
+                            <span class="yt-result-channel-name">Frontend Masters</span>
+                        </div>
+                        <div class="yt-result-desc">A complete walkthrough of React hooks including useEffect cleanup, useMemo optimization, and building custom hooks from scratch.</div>
+                    </div>
+                </div>
+                <div class="yt-result">
+                    <div class="yt-thumb" style="background: linear-gradient(135deg, #2d1b69 0%, #11998e 100%);">
+                        <div class="yt-thumb-play"></div>
+                        <div class="yt-thumb-duration">12:07</div>
+                    </div>
+                    <div class="yt-result-info">
+                        <div class="yt-result-title">Stop Making These React Hooks Mistakes in 2024</div>
+                        <div class="yt-result-meta">89K views &middot; 5 months ago</div>
+                        <div class="yt-result-channel">
+                            <div class="yt-result-channel-avatar" style="background: #ffb300;"></div>
+                            <span class="yt-result-channel-name">Fireship</span>
+                        </div>
+                        <div class="yt-result-desc">Common hook anti-patterns and how to avoid them. Includes useCallback, dependency arrays, and state management tips.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- YSP Filter Panel (floating, pre-opened) -->
+            <div class="ysp-panel" style="top: 62px; left: 50%; transform: translateX(-50%);">
+                <div class="ysp-panel-header">
+                    <div class="ysp-panel-header-left">
+                        <h3>Search Filters</h3>
+                        <span class="ysp-summary-count">4 active</span>
+                    </div>
+                    <div class="tpl-trigger">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                        <span>Templates</span>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                </div>
+
+                <div class="ysp-panel-body">
+                    <!-- Date Range section -->
+                    <div class="ysp-section">
+                        <div class="ysp-section-title">Date Range</div>
+                        <div class="ysp-row">
+                            <div class="ysp-field">
+                                <div class="ysp-field-label">
+                                    <label>After</label>
+                                    <span class="ysp-field-info"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+                                </div>
+                                <div class="ysp-input ysp-input--filled">2024-01-01</div>
+                            </div>
+                            <div class="ysp-field">
+                                <div class="ysp-field-label">
+                                    <label>Before</label>
+                                    <span class="ysp-field-info"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+                                </div>
+                                <div class="ysp-input ysp-input--filled">2024-12-31</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text Filters section -->
+                    <div class="ysp-section">
+                        <div class="ysp-section-title">Text Filters</div>
+                        <div class="ysp-field">
+                            <div class="ysp-field-label">
+                                <label>In Title</label>
+                                <span class="ysp-field-info"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+                            </div>
+                            <div class="ysp-input ysp-input--filled">hooks</div>
+                        </div>
+                        <div class="ysp-field">
+                            <div class="ysp-field-label">
+                                <label>Exact Phrase</label>
+                                <span class="ysp-field-info"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+                            </div>
+                            <div class="ysp-input" style="color: #999;">Exact phrase to match</div>
+                        </div>
+                        <div class="ysp-field">
+                            <div class="ysp-field-label">
+                                <label>Exclude</label>
+                                <span class="ysp-field-info"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+                            </div>
+                            <div class="ysp-input ysp-input--filled">beginner</div>
+                        </div>
+                        <div class="ysp-field">
+                            <div class="ysp-field-label">
+                                <label>Channel</label>
+                                <span class="ysp-field-info"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+                            </div>
+                            <div class="ysp-input" style="color: #999;">Channel name</div>
+                        </div>
+                        <div class="ysp-field">
+                            <div class="ysp-field-label">
+                                <label>Hashtag</label>
+                                <span class="ysp-field-info"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+                            </div>
+                            <div class="ysp-input" style="color: #999;">Tag (without #)</div>
+                        </div>
+                    </div>
+
+                    <!-- Query Preview section -->
+                    <div class="ysp-section ysp-preview-section">
+                        <div class="ysp-section-title">Query Preview</div>
+                        <div class="ysp-preview">
+                            <div class="ysp-preview-line">
+                                <span class="ysp-preview-connector ysp-preview-spacer">AND</span>
+                                <span class="ysp-preview-label">After</span>
+                                <span class="ysp-preview-value">2024-01-01</span>
+                            </div>
+                            <div class="ysp-preview-line">
+                                <span class="ysp-preview-connector ysp-preview-and">AND</span>
+                                <span class="ysp-preview-label">Before</span>
+                                <span class="ysp-preview-value">2024-12-31</span>
+                            </div>
+                            <div class="ysp-preview-line">
+                                <span class="ysp-preview-connector ysp-preview-and">AND</span>
+                                <span class="ysp-preview-label">In Title</span>
+                                <span class="ysp-preview-value">hooks</span>
+                            </div>
+                            <div class="ysp-preview-line">
+                                <span class="ysp-preview-connector ysp-preview-not">NOT</span>
+                                <span class="ysp-preview-label">Exclude</span>
+                                <span class="ysp-preview-value">beginner</span>
+                            </div>
+                        </div>
+
+                        <div class="ysp-pro-divider"><span class="ysp-badge-pro">Pro</span></div>
+
+                        <div class="ysp-preview-actions">
+                            <label class="ysp-keep-toggle">
+                                <div class="ysp-toggle-track"></div>
+                                <span class="ysp-keep-label">Keep after search</span>
+                            </label>
+                            <div class="ysp-save-tpl-btn">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                                Save Template
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ysp-panel-actions">
+                    <div class="ysp-btn ysp-btn-clear">Clear All</div>
+                    <div class="ysp-btn ysp-btn-apply">Save Filters</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SCENE 2 — Export Panel Open
+     ══════════════════════════════════════════════════════════════════ -->
+
+<div class="mockup-wrapper">
+    <div class="mockup-label">Scene 2 — Export Panel</div>
+    <div class="browser">
+        <div class="browser-header">
+            <div class="traffic-lights">
+                <div class="traffic-light tl-red"></div>
+                <div class="traffic-light tl-yellow"></div>
+                <div class="traffic-light tl-green"></div>
+            </div>
+            <div class="browser-address">
+                <svg class="lock-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span class="url">youtube.com</span><span class="url-dim">/results?search_query=best+productivity+apps+2024</span>
+            </div>
+        </div>
+        <div class="browser-viewport browser-viewport--dimmed">
+            <!-- YouTube header -->
+            <div class="yt-header">
+                <div class="yt-logo">
+                    <div class="yt-logo-icon"></div>
+                    <span class="yt-logo-text">YouTube</span>
+                </div>
+                <div class="yt-search-area">
+                    <div class="yt-search-box">
+                        <span class="yt-search-input">best productivity apps 2024</span>
+                        <div class="ysp-filter-btn" title="Filter">
+                            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                        </div>
+                        <div class="ysp-export-btn" title="Export">
+                            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        </div>
+                    </div>
+                    <div class="yt-search-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    </div>
+                </div>
+                <div class="yt-user-area">
+                    <div class="yt-avatar"></div>
+                </div>
+            </div>
+
+            <!-- Chip bar -->
+            <div class="yt-chips-bar">
+                <div class="yt-chip yt-chip--active">All</div>
+                <div class="yt-chip">Shorts</div>
+                <div class="yt-chip">Live</div>
+                <div class="yt-chip">Playlists</div>
+                <div class="yt-chip">Recently uploaded</div>
+                <div class="yt-chip">Watched</div>
+            </div>
+
+            <!-- Results -->
+            <div class="yt-results">
+                <div class="yt-result">
+                    <div class="yt-thumb" style="background: linear-gradient(135deg, #0d7377 0%, #14ffec 100%);">
+                        <div class="yt-thumb-play"></div>
+                        <div class="yt-thumb-duration">14:23</div>
+                    </div>
+                    <div class="yt-result-info">
+                        <div class="yt-result-title">Top 10 Productivity Apps That Actually Changed My Workflow</div>
+                        <div class="yt-result-meta">1.2M views &middot; 3 months ago</div>
+                        <div class="yt-result-channel">
+                            <div class="yt-result-channel-avatar" style="background: #7c4dff;"></div>
+                            <span class="yt-result-channel-name">Thomas Frank</span>
+                        </div>
+                        <div class="yt-result-desc">I tested 50+ apps and these 10 are the ones I actually kept. From task management to note-taking.</div>
+                    </div>
+                </div>
+                <div class="yt-result">
+                    <div class="yt-thumb" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <div class="yt-thumb-play"></div>
+                        <div class="yt-thumb-duration">21:15</div>
+                    </div>
+                    <div class="yt-result-info">
+                        <div class="yt-result-title">The Only 5 Apps You Need to Be Productive in 2024</div>
+                        <div class="yt-result-meta">678K views &middot; 6 months ago</div>
+                        <div class="yt-result-channel">
+                            <div class="yt-result-channel-avatar" style="background: #00bfa5;"></div>
+                            <span class="yt-result-channel-name">Ali Abdaal</span>
+                        </div>
+                        <div class="yt-result-desc">My minimal productivity stack for 2024 — no fluff, just the tools I use every single day.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- YSP Export Panel (floating, pre-opened) -->
+            <div class="ysp-export-panel" style="top: 62px; left: 50%; transform: translateX(-50%);">
+                <div class="ysp-panel-header">
+                    <div class="ysp-panel-header-left">
+                        <h3>Export Results</h3>
+                    </div>
+                </div>
+
+                <div class="ysp-panel-body" style="padding: 4px 0;">
+                    <!-- Format -->
+                    <div class="export-section">
+                        <div class="export-label">Format</div>
+                        <div class="export-formats">
+                            <div class="export-format export-format--active">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                                <span class="export-format-name">CSV</span>
+                                <span class="export-badge export-badge--pro">Pro</span>
+                            </div>
+                            <div class="export-format">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                                <span class="export-format-name">Notic</span>
+                                <span class="export-badge export-badge--free">Free</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Count -->
+                    <div class="export-section">
+                        <div class="export-label">Number of results</div>
+                        <div class="export-counts">
+                            <div class="export-count">20</div>
+                            <div class="export-count export-count--active">50</div>
+                            <div class="export-count">100</div>
+                            <div class="export-count">200</div>
+                        </div>
+                    </div>
+
+                    <!-- Fields -->
+                    <div class="export-section">
+                        <div class="export-label">Fields</div>
+                        <div class="export-fields">
+                            <label class="export-field"><span class="export-check export-check--on"></span><span>Title</span></label>
+                            <label class="export-field"><span class="export-check export-check--on"></span><span>URL</span></label>
+                            <label class="export-field"><span class="export-check export-check--on"></span><span>Channel</span></label>
+                            <label class="export-field"><span class="export-check"></span><span>Views</span></label>
+                            <label class="export-field"><span class="export-check"></span><span>Published</span></label>
+                            <label class="export-field"><span class="export-check"></span><span>Duration</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ysp-panel-actions">
+                    <div class="ysp-btn ysp-btn-clear">Cancel</div>
+                    <div class="ysp-btn ysp-btn-apply" style="background: #065fd4;">Export CSV</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

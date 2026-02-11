@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade — YouTube Search Plus</title>
+    <style>
+        :root {
+            --yt-red: #cc0000;
+            --yt-red-hover: #b00000;
+            --bg: #f5f5f5;
+            --card-bg: #fff;
+            --text: #1a1a1a;
+            --text-muted: #555;
+            --text-light: #999;
+            --border: #e5e5e5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ── Nav ── */
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav img { width: 24px; height: 24px; }
+
+        .nav-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ── Layout ── */
+
+        .page {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 40px 20px 48px;
+        }
+
+        /* ── Headline ── */
+
+        .headline {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .headline h1 {
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+
+        .headline p {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ── Combined card: features + pricing ── */
+
+        .pro-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 28px;
+        }
+
+        .pro-features {
+            padding: 20px 22px 16px;
+        }
+
+        .pro-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+        }
+
+        .pro-feature + .pro-feature {
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .pro-feature-check {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .pro-feature-check--keep  { background: #f3f0ff; color: #7c3aed; }
+        .pro-feature-check--tpl   { background: #eff6ff; color: #2563eb; }
+        .pro-feature-check--csv   { background: #ecfdf5; color: #059669; }
+
+        .pro-feature-text {
+            flex: 1;
+        }
+
+        .pro-feature-text strong {
+            font-size: 13px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 1px;
+        }
+
+        .pro-feature-text span {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Divider */
+        .pro-divider {
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* CTA area inside card */
+        .pro-cta {
+            padding: 20px 22px 22px;
+            text-align: center;
+        }
+
+        .pro-price {
+            margin-bottom: 16px;
+        }
+
+        .pro-price-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .pro-price-amount {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .pro-price-period {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .pro-price-alt {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
+        .cta-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: var(--yt-red);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.12s;
+        }
+
+        .cta-btn:hover { background: var(--yt-red-hover); }
+
+        .cta-note {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 10px;
+        }
+
+        /* ── FAQ ── */
+
+        .faq {
+            margin-bottom: 24px;
+        }
+
+        .faq-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+
+        .faq-item {
+            padding: 12px 0;
+        }
+
+        .faq-item + .faq-item {
+            border-top: 1px solid #eee;
+        }
+
+        .faq-q {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .faq-a {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ── Footer ── */
+
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-light);
+        }
+
+        .footer a {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .footer a:hover { text-decoration: underline; }
+
+        .footer-sep { margin: 0 6px; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <img src="" alt="" id="upgrade-icon" />
+        <div class="nav-name">YouTube Search Plus</div>
+    </div>
+
+    <div class="page">
+        <div class="headline">
+            <h1>Get more out of your search</h1>
+            <p>Pro keeps your workflow going — no re-typing filters, no losing setups.</p>
+        </div>
+
+        <!-- Single card: features + CTA -->
+        <div class="pro-card">
+            <div class="pro-features">
+                <div class="pro-feature">
+                    <div class="pro-feature-check pro-feature-check--keep">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="pro-feature-text">
+                        <strong>Keep filters after search</strong>
+                        <span>Filters stay active across searches instead of clearing.</span>
+                    </div>
+                </div>
+
+                <div class="pro-feature">
+                    <div class="pro-feature-check pro-feature-check--tpl">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="pro-feature-text">
+                        <strong>Save filter templates</strong>
+                        <span>Save setups you use often. Load them in one click.</span>
+                    </div>
+                </div>
+
+                <div class="pro-feature">
+                    <div class="pro-feature-check pro-feature-check--csv">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <div class="pro-feature-text">
+                        <strong>Export to CSV</strong>
+                        <span>Download results as a spreadsheet for research.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pro-divider"></div>
+
+            <div class="pro-cta">
+                <div class="pro-price">
+                    <div class="pro-price-row">
+                        <span class="pro-price-amount">$1.99</span>
+                        <span class="pro-price-period">/mo</span>
+                    </div>
+                    <div class="pro-price-alt">or $12.99/year</div>
+                </div>
+                <button class="cta-btn" id="upgrade-cta">Upgrade to Pro</button>
+                <div class="cta-note">Cancel anytime. 7-day money-back guarantee.</div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="faq">
+            <div class="faq-title">Common questions</div>
+            <div class="faq-item">
+                <div class="faq-q">Can I cancel?</div>
+                <div class="faq-a">Yes, anytime from the extension. You keep Pro until the end of your billing period.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">What happens to my templates if I downgrade?</div>
+                <div class="faq-a">They stay on your device. You just can't create new ones until you re-subscribe.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Does it work on YouTube Music or YouTube Kids?</div>
+                <div class="faq-a">Nope, just regular YouTube search results.</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <a href="https://getnotic.io/ysp/privacy">Privacy</a>
+            <span class="footer-sep">&middot;</span>
+            <a href="https://getnotic.io/ysp/terms">Terms</a>
+            <span class="footer-sep">&middot;</span>
+            <a href="mailto:support@getnotic.io">Contact</a>
+        </div>
+    </div>
+
+    <script src="upgrade.ts" type="module"></script>
+</body>
+</html>

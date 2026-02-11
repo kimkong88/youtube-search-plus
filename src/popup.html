@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=320">
+    <title>YouTube Search Plus</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            width: 300px;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            font-size: 13px;
+            color: #1a1a1a;
+            background: #fff;
+        }
+
+        .popup-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 16px 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .popup-header img {
+            width: 28px;
+            height: 28px;
+        }
+
+        .popup-header-text h1 {
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .popup-header .version {
+            font-size: 11px;
+            color: #999;
+            font-weight: 400;
+        }
+
+        .popup-body {
+            padding: 12px 16px 16px;
+        }
+
+        /* ── Plan status card ── */
+
+        .popup-plan {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 14px;
+        }
+
+        @keyframes skeleton-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .popup-plan-skeleton {
+            height: 60px;
+            border-radius: 10px;
+            background: #f0f0f0;
+            margin-bottom: 14px;
+            animation: skeleton-pulse 1.2s ease-in-out infinite;
+        }
+
+        .popup-plan--free {
+            background: #f8f8f8;
+            border: 1px solid #e5e5e5;
+        }
+
+        .popup-plan--pro {
+            background: linear-gradient(135deg, #fef9ec 0%, #fef3c7 100%);
+            border: 1px solid #f5d57a;
+        }
+
+        .popup-plan-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .popup-plan--free .popup-plan-icon {
+            background: #eee;
+        }
+
+        .popup-plan--pro .popup-plan-icon {
+            background: #fde68a;
+        }
+
+        .popup-plan-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .popup-plan-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .popup-plan-desc {
+            font-size: 11px;
+            color: #888;
+            margin-top: 1px;
+        }
+
+        .popup-plan-action {
+            flex-shrink: 0;
+        }
+
+        .popup-upgrade-btn {
+            background: #cc0000;
+            color: #fff;
+            border: none;
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.12s;
+            white-space: nowrap;
+        }
+
+        .popup-upgrade-btn:hover {
+            background: #aa0000;
+        }
+
+        .popup-manage-btn {
+            background: none;
+            border: 1px solid #d4a017;
+            color: #92400e;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.12s;
+            white-space: nowrap;
+        }
+
+        .popup-manage-btn:hover {
+            background: rgba(146, 64, 14, 0.06);
+        }
+
+        /* ── Actions ── */
+
+        .popup-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .popup-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            background: #fafafa;
+            font-size: 12.5px;
+            font-family: inherit;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.12s, border-color 0.12s;
+            text-align: left;
+        }
+
+        .popup-btn:hover {
+            background: #f0f0f0;
+            border-color: #ccc;
+        }
+
+        .popup-btn svg {
+            flex-shrink: 0;
+            color: #666;
+        }
+
+        .popup-btn-label {
+            flex: 1;
+        }
+
+        .popup-btn-sub {
+            font-size: 11px;
+            color: #999;
+        }
+
+        /* ── Footer ── */
+
+        .popup-footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 16px;
+            border-top: 1px solid #eee;
+        }
+
+        .popup-footer a {
+            font-size: 11px;
+            color: #999;
+            text-decoration: none;
+        }
+
+        .popup-footer a:hover {
+            color: #cc0000;
+        }
+
+        .popup-footer-sep {
+            color: #ddd;
+            font-size: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="popup-header">
+        <img src="" alt="YSP" id="popup-icon" />
+        <div class="popup-header-text">
+            <h1>YouTube Search Plus</h1>
+            <span class="version">v1.1.0</span>
+        </div>
+    </div>
+
+    <div class="popup-body">
+        <!-- Plan status (skeleton until loaded) -->
+        <div class="popup-plan-skeleton" id="plan-skeleton"></div>
+        <div class="popup-plan popup-plan--free" id="plan-card" style="display:none;">
+            <div class="popup-plan-icon" id="plan-icon"></div>
+            <div class="popup-plan-info">
+                <div class="popup-plan-name" id="plan-name"></div>
+                <div class="popup-plan-desc" id="plan-desc"></div>
+            </div>
+            <div class="popup-plan-action" id="plan-action"></div>
+        </div>
+
+        <div class="popup-actions">
+            <button class="popup-btn" id="open-youtube">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+                <span class="popup-btn-label">Open YouTube</span>
+            </button>
+
+            <button class="popup-btn" id="replay-tour">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polygon points="10 8 16 12 10 16 10 8"/>
+                </svg>
+                <span class="popup-btn-label">Replay Tour</span>
+            </button>
+        </div>
+
+    </div>
+
+    <div class="popup-footer">
+        <a href="mailto:support@getnotic.io">Support</a>
+        <span class="popup-footer-sep">·</span>
+        <a href="https://chromewebstore.google.com/detail/pdkpjhenjimobdjkaoaoagbddchobggf/reviews" target="_blank" id="footer-rate">Rate</a>
+    </div>
+</body>
+<script src="popup.ts" type="module"></script>
+</html>

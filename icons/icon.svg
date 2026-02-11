@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Red rounded square -->
+  <rect x="4" y="4" width="120" height="120" rx="26" ry="26" fill="#cc0000"/>
+  <!-- Magnifying glass circle -->
+  <circle cx="56" cy="56" r="24" fill="none" stroke="#fff" stroke-width="8"/>
+  <!-- Magnifying glass handle -->
+  <line x1="73" y1="73" x2="96" y2="96" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+  <!-- Play triangle -->
+  <polygon points="49,44 49,68 69,56" fill="#fff"/>
+</svg>
