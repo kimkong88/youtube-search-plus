@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "YouTube Search Plus",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "Advanced YouTube search filters — date ranges, title matching, exclusions, and more — right from the search bar.",
     "permissions": [
         "activeTab",
