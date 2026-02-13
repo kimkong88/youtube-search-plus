@@ -12,11 +12,7 @@
   "type": "module",
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.3.0",
-    "@tailwindcss/postcss": "^4.1.18",
     "@types/chrome": "^0.1.36",
-    "autoprefixer": "^10.4.24",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "vitest": "^4.0.18"
